@@ -1,13 +1,14 @@
-import React, {useState, useContext } from 'react';
+import React, {useContext, dispatch } from 'react';
 import { AppContext } from '../context/AppContext';
 
 const Budget = () => {
 //	const { budget } = useContext(AppContext);
-    const [budget, setBudget] = useState('');
-    const { expenses } = useContext(AppContext);
-    const [currency] = useState('£ Pound')
-    const currencySymbol=currency.substr(0,1)
- 
+ //   const [budget, setBudget] = useState('');
+    const { expenses, currency } = useContext(AppContext);
+    const totalExpenses = expenses.reduce((total, item) => {
+		return (total += item.cost);
+	}, 0);
+
 
 const blurEvent = (inputbudget) => {
     if (inputbudget==="" || isNaN(inputbudget)){
@@ -17,19 +18,23 @@ const blurEvent = (inputbudget) => {
         alert("The budget may not exceed 20 000");
         return;
     }
-    if (inputbudget < expenses){
+    if (inputbudget < totalExpenses){
         alert("The budget must not be less than expenses");
         return;
     }
 
-    setBudget(inputbudget);
+ //   setBudget(inputbudget);
+    dispatch({
+        type: 'SET_BUDGET',
+        payload: inputbudget,
+    });
     }
 
 
 	return (
 		<div className='alert alert-secondary'>
             <span>Budget: </span> 
-            <span> {currencySymbol}</span>
+            <span> {currency}</span>
             <input 
                 required='required'
 				type='number'

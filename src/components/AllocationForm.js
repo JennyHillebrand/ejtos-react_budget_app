@@ -2,13 +2,13 @@ import React, { useContext, useState } from 'react';
 import { AppContext } from '../context/AppContext';
 
 const AllocationForm = (props) => {
-	const { dispatch,remaining  } = useContext(AppContext);
+	const { dispatch,remaining,currency  } = useContext(AppContext);
 
 	const [name, setName] = useState('');
 	const [cost, setCost] = useState('');
 	const [action, setAction] = useState('');
-    const [currency] = useState('£ Pound')
-    const currencySymbol=currency.substr(0,1)
+  //  const [currency] = useState('£ Pound')
+  //  const currencySymbol=currency.substr(0,1)
 	const submitEvent = () => {
             if (cost===""){
                 window.alert("Please enter a number");
@@ -63,7 +63,7 @@ const AllocationForm = (props) => {
 	        	        <option value="Reduce" name="Reduce">Reduce</option>
 				     </select>
                      <div className="input-group-prepend" style={{ marginLeft: '2rem' }}>
-                    <span> {currencySymbol}</span>
+                    <span> {currency}</span>
                     </div>
 					<input
 						required='required'
