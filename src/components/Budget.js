@@ -5,7 +5,9 @@ const Budget = () => {
 //	const { budget } = useContext(AppContext);
     const [budget, setBudget] = useState('');
     const { expenses } = useContext(AppContext);
-   // setBudget(2000)
+    const [currency] = useState('£ Pound')
+    const currencySymbol=currency.substr(0,1)
+ 
 
 const blurEvent = (inputbudget) => {
     if (inputbudget==="" || isNaN(inputbudget)){
@@ -26,10 +28,8 @@ const blurEvent = (inputbudget) => {
 
 	return (
 		<div className='alert alert-secondary'>
-            <div className="input-group-prepend">
-			<label className="input-group-text" htmlFor="inputGroupBudget">Budget: £</label>
-            
-
+            <span>Budget: </span> 
+            <span> {currencySymbol}</span>
             <input 
                 required='required'
 				type='number'
@@ -38,8 +38,7 @@ const blurEvent = (inputbudget) => {
 			//	value={budget}
 				style={{size: 10}}
                 onBlur={(event) => blurEvent(event.target.value)}>
-            </input>
-            </div>
+            </input>   
 		</div>
 	);
 };
